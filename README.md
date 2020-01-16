@@ -8,50 +8,41 @@ Check out this video for a quick walkthrough:
 
 The back-end is built with **Node.js** using a **Postgres** database. 
 
-## Automatic Deployment to Heroku
+The project is written using ECMAScript 6 including ECMAScript 6 modules.
 
-1. Make sure you are logged in to the [Heroku Dashboard](https://dashboard.heroku.com)
-
-1. Click the Button below to deploy the application on Heroku.
-
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-Your own instance of the application is automatically deployed, and your own Postgres database is populated with sample data.
-
-## Local Installation
+## Local Installation with Docker
 
 Follow the instructions below if you prefer to install the application on your local machine:
 
-1. Install the latest version of [Node.js](https://nodejs.org). This application requires Node.js 4.x.
+1. Install the latest version of Docker and docker-compose
 
-1. Install [Postgres](http://www.postgresql.org/) locally 
+1. Clone this repository
 
-1. Start Postgres and create a database called **university**.
-
-1. Clone this repository or download and unzip [this](https://github.com/ccoenraets/react-university/archive/master.zip) zip file.
-
-1. Navigate to the **react-university** directory and install the project dependencies:
+1. Navigate to the **ru-web** directory and run docker-compose:
 
     ```
-    npm install
+    docker-compose up -d
     ```
 
-1. Open **server/config.js** and make sure the **databaseURL** matches your configuration (use your user name)
-
-1. Type the following command to build the client application:
+1. Internally docker-compose should run command
 
     ```
-    npm run webpack
+    npm run docker-start
+    ```
+
+    which should execut the following commands defined in package.json:
+    ```
+    npm install && 
+    npm run webpack && 
+    node server.js
+    ```
+
+1. Database schema is going to be created automatically from init.sql
+
+1. To access PostgreSQL database use the following command:
+
+    ```
+    docker-compose exec ru-postgres psql -U postgres ruweb
     ```
     
-    The project is written using ECMAScript 6 including ECMAScript 6 modules.
-
-1. Type the following command to start the server:
-    
-    ```
-    npm start
-    ```
-    
-    The database is automatically populated
-    
-1. Open a browser and access [http://localhost:5000](http://localhost:5000)
+1. Open a browser and access [http://localhost:5002](http://localhost:5002)
